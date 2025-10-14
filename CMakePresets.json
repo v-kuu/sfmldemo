@@ -1,0 +1,30 @@
+{
+	"version": 1,
+	"cmakeMinimumRequired": {
+		"major": 3,
+		"minor": 22,
+		"patch": 0
+	},
+	"configurePresets": [
+		{
+			"name": "gcc",
+			"displayName": "GCC",
+			"description": "Default build options for GCC",
+			"generator": "Unix Makefile",
+			"binaryDir": "${sourceDir}/build",
+			"cacheVariables": {
+				"CMAKE_CXX_FLAGS": "-Wall -Wextra -Werror"
+			}
+		},
+		{
+			"name": "clang",
+			"displayName": "Clang",
+			"description": "Default build options for Clang",
+			"generator": "Unix Makefile",
+			"binaryDir": "${sourceDir}/build",
+			"cacheVariables": {
+				"CMAKE_CXX_FLAGS": "-Wall -Wextra -Werror"
+			}
+		}
+	]
+}
