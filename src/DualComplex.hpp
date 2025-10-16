@@ -8,6 +8,7 @@ struct	DualComplex
 	std::complex<float> dual;
 
 	DualComplex(std::complex<float> r = {}, std::complex<float> d = {});
+	DualComplex(double angleDeg, sf::Vector2<float> translation);
 
 	DualComplex operator+(const DualComplex &other) const;
 	DualComplex operator-(const DualComplex &other) const;

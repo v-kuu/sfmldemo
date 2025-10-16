@@ -5,6 +5,12 @@ DualComplex::DualComplex(std::complex<float> r, std::complex<float> d)
 {
 }
 
+DualComplex::DualComplex(double angleDeg, sf::Vector2<float> translation)
+	: real(std::polar(1.0, (angleDeg * M_PI / 180))),
+	dual(std::complex<float>(translation.x, translation.y) * real)
+{
+}
+
 DualComplex DualComplex::operator+(const DualComplex &other) const
 {
 	return {real + other.real, dual + other.dual};
