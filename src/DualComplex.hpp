@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SFML/Graphics/Transform.hpp>
 #include <complex>
 #include <iostream>
