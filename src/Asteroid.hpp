@@ -10,10 +10,10 @@ class	Asteroid : public IObject
 		Asteroid(void);
 		~Asteroid(void) = default;
 
-		void draw(sf::RenderWindow &target) override;
-		void update(DualComplex &dc) override;
+		void draw(sf::RenderWindow &target, float delta) override;
 
 	private:
 		sf::Sprite _sprite;
-		DualComplex _dc;
+		float _speed;
+		float _rotSpeed;
 };

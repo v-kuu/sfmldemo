@@ -7,6 +7,5 @@ class	IObject
 {
 	public:
 		virtual ~IObject(void) = default;
-		virtual void draw(sf::RenderWindow &target) = 0;
-		virtual void update(DualComplex &dc) = 0;
+		virtual void draw(sf::RenderWindow &target, float delta) = 0;
 };

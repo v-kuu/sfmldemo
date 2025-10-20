@@ -9,6 +9,7 @@ int main()
     window.setFramerateLimit(60);
 	ResourceBank::initialize();
 	Scene map;
+	sf::Clock clock;
 	map.objects.push_back(std::make_unique<Asteroid>());
     while (window.isOpen())
     {
@@ -20,8 +21,9 @@ int main()
                 window.close();
             }
         }
+		float delta = clock.restart().asSeconds();
 		for (auto it = map.objects.begin(); it != map.objects.end(); ++it)
-			(*it)->draw(window);
+			(*it)->draw(window, delta);
 
         window.display();
     }

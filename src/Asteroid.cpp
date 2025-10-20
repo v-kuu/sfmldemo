@@ -2,20 +2,16 @@
 
 Asteroid::Asteroid(void)
 	: _sprite(ResourceBank::textures.find("Asteroid")->second),
-	_dc(5, {5.f, 5.f})
+	_speed(100.f),
+	_rotSpeed(30.f)
 {
+	sf::FloatRect bounds = _sprite.getLocalBounds();
+	_sprite.setOrigin(bounds.getCenter());
 }
 
-void Asteroid::draw(sf::RenderWindow &target)
+void Asteroid::draw(sf::RenderWindow &target, float delta)
 {
-	sf::Vector2 pos = _sprite.getPosition();
-	_sprite.setPosition(pos + sf::Vector2(1.f, 1.f));
-	sf::Angle rot = _sprite.getRotation();
-	_sprite.rotate(rot + sf::degrees(1));
+	_sprite.move({_speed * delta, _speed * delta});
+	_sprite.rotate(sf::degrees(_rotSpeed * delta));
 	target.draw(_sprite);
-}
-
-void Asteroid::update(DualComplex &dc)
-{
-	_dc = dc;
 }
