@@ -12,7 +12,7 @@ int main()
 	sf::View main(map.bounds.getCenter(), map.bounds.size);
 	window.setView(main);
 	sf::Clock clock;
-	for (int i = 0; i < 16; ++i)
+	for (int i = 0; i < 32; ++i)
 		map.objects.push_back(Asteroid::generateRandom(map.bounds));
     while (window.isOpen())
     {

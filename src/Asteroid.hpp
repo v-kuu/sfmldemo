@@ -8,8 +8,8 @@
 class	Asteroid : public IObject
 {
 	public:
-		Asteroid(void);
-		Asteroid(float speed, float rotspeed, sf::Vector2<float> dir, sf::Vector2<float> pos);
+		Asteroid(void) = delete;
+		Asteroid(sf::FloatRect sceneBounds);
 		~Asteroid(void) = default;
 
 		void draw(sf::RenderWindow &target, float delta) override;
@@ -20,4 +20,7 @@ class	Asteroid : public IObject
 		float _speed;
 		float _rotSpeed;
 		sf::Vector2<float> _dir;
+		sf::FloatRect _sceneBounds;
+		
+		void _respawn(void);
 };
