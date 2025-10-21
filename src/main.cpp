@@ -5,12 +5,15 @@
 
 int main()
 {
-    auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "CMake SFML Project");
+    auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "Asteroid Game");
     window.setFramerateLimit(60);
 	ResourceBank::initialize();
 	Scene map;
+	sf::View main(map.bounds.getCenter(), map.bounds.size);
+	window.setView(main);
 	sf::Clock clock;
-	map.objects.push_back(std::make_unique<Asteroid>());
+	for (int i = 0; i < 16; ++i)
+		map.objects.push_back(Asteroid::generateRandom(map.bounds));
     while (window.isOpen())
     {
         window.clear();
