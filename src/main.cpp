@@ -3,6 +3,7 @@
 #include "Scene.hpp"
 #include "Asteroid.hpp"
 #include "Player.hpp"
+#include "Projectile.hpp"
 
 int main()
 {
@@ -46,6 +47,8 @@ int main()
 			rot += sf::degrees(-5);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
 			rot += sf::degrees(5);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+			map.objects.push_back(player.fire());
 		float delta = clock.restart().asSeconds();
 		for (auto it = map.objects.begin(); it != map.objects.end(); ++it)
 			(*it)->draw(window, delta);

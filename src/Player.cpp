@@ -26,3 +26,18 @@ void Player::update(sf::Vector2<float> accel, sf::Angle rot)
 	if ((_velocity + accel).length() < _topSpeed)
 		_velocity += accel;
 }
+
+std::unique_ptr<Projectile> Player::fire(void) const
+{
+	return (std::make_unique<Projectile>(*this));
+}
+
+sf::Vector2<float> Player::center(void) const
+{
+	return (_sprite.getPosition());
+}
+
+sf::Angle Player::orientation(void) const
+{
+	return (_orientation);
+}

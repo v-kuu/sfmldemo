@@ -11,4 +11,7 @@ void ResourceBank::initialize(void)
 	if (!temp.loadFromFile("textures/playerShip1_blue.png"))
 		std::cerr << "Failed to load player texture" << std::endl;
 	textures["Player"] = sf::Texture(temp);
+	if (!temp.loadFromFile("textures/laserGreen08.png"))
+		std::cerr << "Failed to load player texture" << std::endl;
+	textures["Laser"] = sf::Texture(temp);
 }

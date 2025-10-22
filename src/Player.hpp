@@ -1,6 +1,9 @@
 #pragma once
 #include "IObject.hpp"
 #include "ResourceBank.hpp"
+#include "Projectile.hpp"
+
+class	Projectile;
 
 class	Player : public IObject
 {
@@ -10,6 +13,10 @@ class	Player : public IObject
 
 		void draw(sf::RenderWindow &target, float delta) override;
 		void update(sf::Vector2<float> accel, sf::Angle rot);
+		std::unique_ptr<Projectile> fire(void) const;
+
+		sf::Vector2<float> center(void) const;
+		sf::Angle orientation(void) const;
 
 	private:
 		sf::Sprite _sprite;
