@@ -25,8 +25,7 @@ void Asteroid::_respawn(void)
 	std::uniform_int_distribution<> speedDist(125, 500);
 	std::uniform_int_distribution<> rotSpeedDist(25, 45);
 	std::uniform_int_distribution<> sideDist(1, 4);
-	std::uniform_int_distribution<> dirXDist(-1000, 1000);
-	std::uniform_int_distribution<> dirYDist(-1000, 1000);
+	std::uniform_int_distribution<> angleDist(-40, 40);
 	std::uniform_int_distribution<> widthDist(0, static_cast<int>(_sceneBounds.size.x));
 	std::uniform_int_distribution<> heightDist(0, static_cast<int>(_sceneBounds.size.y));
 
@@ -57,9 +56,8 @@ void Asteroid::_respawn(void)
 			break ;
 	}
 	_sprite.setPosition(pos);
-	sf::Vector2f dirOffset = {static_cast<float>(dirXDist(rand)),
-		static_cast<float>(dirYDist(rand))};
-	_dir = (_sceneBounds.getCenter() - (pos + dirOffset)).normalized();
+	_dir = (_sceneBounds.getCenter() - pos).normalized();
+	_dir = _dir.rotatedBy(sf::degrees(static_cast<float>(angleDist(rand))));
 }
 
 std::unique_ptr<Asteroid> Asteroid::generateRandom(sf::FloatRect sceneBounds)
