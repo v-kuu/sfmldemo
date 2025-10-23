@@ -1,5 +1,4 @@
 #pragma once
-
 #include "IObject.hpp"
 #include "ResourceBank.hpp"
 #include <SFML/Graphics/Sprite.hpp>
@@ -13,6 +12,7 @@ class	Asteroid : public IObject
 		~Asteroid(void) = default;
 
 		void draw(sf::RenderWindow &target, float delta) override;
+		bool getHit(sf::FloatRect obj) override;
 		static std::unique_ptr<Asteroid> generateRandom(sf::FloatRect sceneBounds);
 
 	private:

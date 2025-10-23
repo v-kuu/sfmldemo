@@ -18,6 +18,16 @@ void Asteroid::draw(sf::RenderWindow &target, float delta)
 	target.draw(_sprite);
 }
 
+bool Asteroid::getHit(sf::FloatRect projectile)
+{
+	if (_sprite.getGlobalBounds().findIntersection(projectile) != std::nullopt)
+	{
+		_respawn();
+		return (true);
+	}
+	return (false);
+}
+
 void Asteroid::_respawn(void)
 {
 	std::random_device rd;

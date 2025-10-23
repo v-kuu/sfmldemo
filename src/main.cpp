@@ -52,7 +52,7 @@ int main()
 		float delta = clock.restart().asSeconds();
 		for (auto it = map.objects.begin(); it != map.objects.end(); ++it)
 			(*it)->draw(window, delta);
-		Projectile::drawAll(window, delta);
+		Projectile::drawAll(window, delta, map);
 		player.update(accel, rot, delta);
 		player.draw(window, delta);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))

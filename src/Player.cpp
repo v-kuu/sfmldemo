@@ -19,6 +19,17 @@ void Player::draw(sf::RenderWindow &target, float delta)
 	target.draw(_sprite);
 }
 
+#include <iostream>
+bool Player::getHit(sf::FloatRect obj)
+{
+	if (_sprite.getGlobalBounds().findIntersection(obj) != std::nullopt)
+	{
+		std::cout << "Ouchie" << std::endl;
+		return (true);
+	}
+	return (false);
+}
+
 void Player::update(sf::Vector2<float> accel, sf::Angle rot, float delta)
 {
 	_orientation += rot;

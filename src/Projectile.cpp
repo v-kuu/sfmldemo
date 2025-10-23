@@ -22,10 +22,24 @@ void Projectile::draw(sf::RenderWindow &target, float delta)
 	target.draw(_sprite);
 }
 
-void Projectile::drawAll(sf::RenderWindow &target, float delta)
+bool Projectile::getHit(sf::FloatRect obj)
+{
+	(void)obj;
+	return (false);
+}
+
+void Projectile::drawAll(sf::RenderWindow &target, float delta, Scene &map)
 {
 	for (auto &it : _projectiles)
+	{
 		it.draw(target, delta);
+		if (it._sprite.getPosition().x > 0)
+		{
+			for (auto &obj : map.objects)
+				if (obj->getHit(it._sprite.getGlobalBounds()))
+					it._despawn();
+		}
+	}
 }
 
 void Projectile::addProjectile(sf::FloatRect sceneBounds)

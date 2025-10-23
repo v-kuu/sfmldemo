@@ -12,6 +12,7 @@ class	Player : public IObject
 		Player(sf::FloatRect sceneBounds);
 
 		void draw(sf::RenderWindow &target, float delta) override;
+		bool getHit(sf::FloatRect obj) override;
 		void update(sf::Vector2<float> accel, sf::Angle rot, float delta);
 		void fire(void);
 
