@@ -2,18 +2,28 @@
 #include "IObject.hpp"
 #include "ResourceBank.hpp"
 #include "Player.hpp"
+#include <functional>
 
 class	Player;
 
 class	Projectile : public IObject
 {
 	public:
-		Projectile(void) = delete;
-		Projectile(const Player &source);
+		static int max;
+		static int amount;
+		static int next;
+		Projectile(void);
 
 		void draw(sf::RenderWindow &target, float delta) override;
+		static void drawAll(sf::RenderWindow &target, float delta);
+		static void addProjectile(void);
+		static void fire(const Player &source);
 
 	private:
 		sf::Sprite _sprite;
 		sf::Vector2<float> _velocity;
+		static std::vector<Projectile> _projectiles;
+
+		void _spawn(const Player &source);
+		void _despawn(void);
 };

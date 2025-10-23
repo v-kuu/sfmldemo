@@ -5,7 +5,8 @@ Player::Player(sf::FloatRect sceneBounds)
 	_velocity({0, 0}),
 	_orientation(sf::degrees(0)),
 	_sceneBounds(sceneBounds),
-	_topSpeed(500)
+	_topSpeed(500),
+	_fireCooldown(0)
 {
 	sf::FloatRect bounds = _sprite.getLocalBounds();
 	_sprite.setOrigin(bounds.getCenter());
@@ -14,22 +15,29 @@ Player::Player(sf::FloatRect sceneBounds)
 
 void Player::draw(sf::RenderWindow &target, float delta)
 {
-	_sprite.move(_velocity * delta);
+	(void)delta;
 	target.draw(_sprite);
 }
 
-void Player::update(sf::Vector2<float> accel, sf::Angle rot)
+void Player::update(sf::Vector2<float> accel, sf::Angle rot, float delta)
 {
 	_orientation += rot;
 	_sprite.rotate(rot);
 	accel = accel.rotatedBy(_orientation);
 	if ((_velocity + accel).length() < _topSpeed)
 		_velocity += accel;
+	if (_fireCooldown > 0)
+		_fireCooldown -= delta;
+	_sprite.move(_velocity * delta);
 }
 
-std::unique_ptr<Projectile> Player::fire(void) const
+void Player::fire(void)
 {
-	return (std::make_unique<Projectile>(*this));
+	if (_fireCooldown <= 0)
+	{
+		Projectile::fire(*this);
+		_fireCooldown = 1;
+	}
 }
 
 sf::Vector2<float> Player::center(void) const

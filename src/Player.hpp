@@ -12,8 +12,8 @@ class	Player : public IObject
 		Player(sf::FloatRect sceneBounds);
 
 		void draw(sf::RenderWindow &target, float delta) override;
-		void update(sf::Vector2<float> accel, sf::Angle rot);
-		std::unique_ptr<Projectile> fire(void) const;
+		void update(sf::Vector2<float> accel, sf::Angle rot, float delta);
+		void fire(void);
 
 		sf::Vector2<float> center(void) const;
 		sf::Angle orientation(void) const;
@@ -24,4 +24,5 @@ class	Player : public IObject
 		sf::Angle _orientation;
 		sf::FloatRect _sceneBounds;
 		float _topSpeed;
+		float _fireCooldown;
 };
