@@ -18,7 +18,7 @@ int main()
 	for (int i = 0; i < 32; ++i)
 		map.objects.push_back(Asteroid::generateRandom(map.bounds));
 	for (int i = 0; i < 5; ++i)
-		Projectile::addProjectile();
+		Projectile::addProjectile(map.bounds);
 
 	sf::Vector2<float> accel;
 	sf::Angle rot;
@@ -49,14 +49,14 @@ int main()
 			rot += sf::degrees(-5);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
 			rot += sf::degrees(5);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
-			player.fire();
 		float delta = clock.restart().asSeconds();
 		for (auto it = map.objects.begin(); it != map.objects.end(); ++it)
 			(*it)->draw(window, delta);
 		Projectile::drawAll(window, delta);
 		player.update(accel, rot, delta);
 		player.draw(window, delta);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+			player.fire();
         window.display();
     }
 }

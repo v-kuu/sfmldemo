@@ -16,12 +16,13 @@ class	Projectile : public IObject
 
 		void draw(sf::RenderWindow &target, float delta) override;
 		static void drawAll(sf::RenderWindow &target, float delta);
-		static void addProjectile(void);
+		static void addProjectile(sf::FloatRect sceneBounds);
 		static void fire(const Player &source);
 
 	private:
 		sf::Sprite _sprite;
 		sf::Vector2<float> _velocity;
+		static sf::FloatRect _sceneBounds;
 		static std::vector<Projectile> _projectiles;
 
 		void _spawn(const Player &source);

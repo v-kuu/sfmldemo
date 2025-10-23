@@ -3,6 +3,7 @@
 int Projectile::max = 0;
 int Projectile::amount = 0;
 int Projectile::next = 0;
+sf::FloatRect Projectile::_sceneBounds = {};
 std::vector<Projectile> Projectile::_projectiles = {};
 
 Projectile::Projectile(void)
@@ -16,6 +17,8 @@ Projectile::Projectile(void)
 void Projectile::draw(sf::RenderWindow &target, float delta)
 {
 	_sprite.move(_velocity * delta);
+	if (not _sceneBounds.contains(_sprite.getPosition()))
+		_despawn();
 	target.draw(_sprite);
 }
 
@@ -25,9 +28,10 @@ void Projectile::drawAll(sf::RenderWindow &target, float delta)
 		it.draw(target, delta);
 }
 
-void Projectile::addProjectile(void)
+void Projectile::addProjectile(sf::FloatRect sceneBounds)
 {
 	_projectiles.emplace_back();
+	_sceneBounds = sceneBounds;
 	max++;
 }
 
