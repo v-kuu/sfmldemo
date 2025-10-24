@@ -12,6 +12,7 @@ int main()
 	ResourceBank::initialize();
 	Scene map;
 	sf::View main(map.bounds.getCenter(), {1920, 1080});
+	main.zoom(1.3f);
 	window.setView(main);
 	Player player(map.bounds);
 	sf::Clock clock;
