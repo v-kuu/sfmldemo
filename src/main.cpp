@@ -16,7 +16,7 @@ int main()
 	Player player(map.bounds);
 	sf::Clock clock;
 	for (int i = 0; i < 32; ++i)
-		map.objects.push_back(Asteroid::generateRandom(map.bounds));
+		map.asteroids.emplace_back((map.bounds));
 	for (int i = 0; i < 5; ++i)
 		Projectile::addProjectile(map.bounds);
 
@@ -50,8 +50,11 @@ int main()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
 			rot += sf::degrees(5);
 		float delta = clock.restart().asSeconds();
-		for (auto it = map.objects.begin(); it != map.objects.end(); ++it)
-			(*it)->draw(window, delta);
+		for (auto &ast : map.asteroids)
+		{
+			ast.draw(window, delta);
+			player.getHit(ast.hitbox());
+		}
 		Projectile::drawAll(window, delta, map);
 		player.update(accel, rot, delta);
 		player.draw(window, delta);

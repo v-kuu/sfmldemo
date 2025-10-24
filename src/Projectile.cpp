@@ -35,8 +35,8 @@ void Projectile::drawAll(sf::RenderWindow &target, float delta, Scene &map)
 		it.draw(target, delta);
 		if (it._sprite.getPosition().x > 0)
 		{
-			for (auto &obj : map.objects)
-				if (obj->getHit(it._sprite.getGlobalBounds()))
+			for (auto &obj : map.asteroids)
+				if (obj.getHit(it._sprite.getGlobalBounds()))
 					it._despawn();
 		}
 	}

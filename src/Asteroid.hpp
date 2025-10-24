@@ -13,7 +13,7 @@ class	Asteroid : public IObject
 
 		void draw(sf::RenderWindow &target, float delta) override;
 		bool getHit(sf::FloatRect obj) override;
-		static std::unique_ptr<Asteroid> generateRandom(sf::FloatRect sceneBounds);
+		sf::FloatRect hitbox(void) const;
 
 	private:
 		sf::Sprite _sprite;

@@ -28,6 +28,11 @@ bool Asteroid::getHit(sf::FloatRect projectile)
 	return (false);
 }
 
+sf::FloatRect Asteroid::hitbox(void) const
+{
+	return (_sprite.getGlobalBounds());
+}
+
 void Asteroid::_respawn(void)
 {
 	std::random_device rd;
@@ -68,10 +73,4 @@ void Asteroid::_respawn(void)
 	_sprite.setPosition(pos);
 	_dir = (_sceneBounds.getCenter() - pos).normalized();
 	_dir = _dir.rotatedBy(sf::degrees(static_cast<float>(angleDist(rand))));
-}
-
-std::unique_ptr<Asteroid> Asteroid::generateRandom(sf::FloatRect sceneBounds)
-{
-	std::unique_ptr<Asteroid> ret = std::make_unique<Asteroid>(sceneBounds);
-	return (ret);
 }
