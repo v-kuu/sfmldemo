@@ -17,6 +17,7 @@ class	Player : public IObject
 		void fire(void);
 
 		sf::Vector2<float> center(void) const;
+		sf::Vector2<float> velocity(void) const;
 		sf::Angle orientation(void) const;
 
 	private:

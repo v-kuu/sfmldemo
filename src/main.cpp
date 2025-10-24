@@ -61,6 +61,8 @@ int main()
 		player.draw(window, delta);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
 			player.fire();
+		main.setCenter(player.center());
+		window.setView(main);
         window.display();
     }
 }

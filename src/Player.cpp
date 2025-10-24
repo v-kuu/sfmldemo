@@ -56,6 +56,11 @@ sf::Vector2<float> Player::center(void) const
 	return (_sprite.getPosition());
 }
 
+sf::Vector2<float> Player::velocity(void) const
+{
+	return (_velocity);
+}
+
 sf::Angle Player::orientation(void) const
 {
 	return (_orientation);
