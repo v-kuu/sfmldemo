@@ -11,7 +11,7 @@ int main()
     window.setFramerateLimit(60);
 	ResourceBank::initialize();
 	Scene map;
-	sf::View main(map.bounds.getCenter(), map.bounds.size);
+	sf::View main(map.bounds.getCenter(), {1920, 1080});
 	window.setView(main);
 	Player player(map.bounds);
 	sf::Clock clock;
