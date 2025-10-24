@@ -27,6 +27,7 @@ int main()
 		accel = {0, 0};
 		rot = sf::degrees(0);
         window.clear();
+		map.drawBg(window);
         while (const std::optional event = window.pollEvent())
         {
             if (event->is<sf::Event::Closed>())

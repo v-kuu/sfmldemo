@@ -6,7 +6,9 @@
 struct	Scene
 {
 		Scene(void);
+		void drawBg(sf::RenderWindow &target) const;
 
-		std::vector<Asteroid> asteroids;
+		sf::Sprite background;
 		sf::FloatRect bounds;
+		std::vector<Asteroid> asteroids;
 };
