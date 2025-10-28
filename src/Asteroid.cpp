@@ -15,7 +15,8 @@ void Asteroid::draw(sf::RenderWindow &target, float delta)
 	_sprite.rotate(sf::degrees(_rotSpeed * delta));
 	if (not _sceneBounds.contains(_sprite.getPosition()))
 		_respawn();
-	target.draw(_sprite);
+	sf::Shader &shader = ResourceBank::shaders["CRT"];
+	target.draw(_sprite, &shader);
 }
 
 bool Asteroid::getHit(sf::FloatRect projectile)

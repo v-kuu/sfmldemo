@@ -10,6 +10,8 @@ int main()
     auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "Asteroid Game");
     window.setFramerateLimit(60);
 	ResourceBank::initialize();
+	ResourceBank::shaders["CRT"].setUniform("resolution", sf::Vector2f(window.getSize()));
+	ResourceBank::shaders["CRT"].setUniform("texture", sf::Shader::CurrentTexture);
 	Scene map;
 	sf::View main(map.bounds.getCenter(), {1920, 1080});
 	main.zoom(1.3f);

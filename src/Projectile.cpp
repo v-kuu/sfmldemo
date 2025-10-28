@@ -19,7 +19,8 @@ void Projectile::draw(sf::RenderWindow &target, float delta)
 	_sprite.move(_velocity * delta);
 	if (not _sceneBounds.contains(_sprite.getPosition()))
 		_despawn();
-	target.draw(_sprite);
+	sf::Shader &shader = ResourceBank::shaders["CRT"];
+	target.draw(_sprite, &shader);
 }
 
 bool Projectile::getHit(sf::FloatRect obj)

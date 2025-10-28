@@ -16,7 +16,8 @@ Player::Player(sf::FloatRect sceneBounds)
 void Player::draw(sf::RenderWindow &target, float delta)
 {
 	(void)delta;
-	target.draw(_sprite);
+	sf::Shader &shader = ResourceBank::shaders["CRT"];
+	target.draw(_sprite, &shader);
 }
 
 #include <iostream>
