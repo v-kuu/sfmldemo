@@ -5,10 +5,12 @@
 
 struct	Scene
 {
-		Scene(void);
-		void drawBg(sf::RenderWindow &target) const;
+		Scene(void) = delete;
+		Scene(sf::RenderWindow &window);
+		void drawBg(void);
 
 		sf::Sprite background;
 		sf::FloatRect bounds;
 		std::vector<Asteroid> asteroids;
+		sf::RenderTexture frameBuffer;
 };

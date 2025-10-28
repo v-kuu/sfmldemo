@@ -8,7 +8,7 @@ struct	ResourceBank
 {
 	ResourceBank(void) = delete;
 
-	static void initialize(void);
+	static void initialize(sf::RenderWindow &window);
 
 	static std::map<std::string, sf::Texture> textures;
 	static std::map<std::string, sf::Shader> shaders;

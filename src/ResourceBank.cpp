@@ -3,7 +3,7 @@
 std::map<std::string, sf::Texture> ResourceBank::textures = {};
 std::map<std::string, sf::Shader> ResourceBank::shaders = {};
 
-void ResourceBank::initialize(void)
+void ResourceBank::initialize(sf::RenderWindow &window)
 {
 	sf::Texture tex;
 	if (!tex.loadFromFile("textures/meteorGrey_big1.png"))
@@ -23,5 +23,7 @@ void ResourceBank::initialize(void)
 	sf::Shader shader;
 	if (!shader.loadFromFile("shaders/crt.frag", sf::Shader::Type::Fragment))
 		std::cerr << "Failed to load crt shader" << std::endl;
+	shader.setUniform("texture", sf::Shader::CurrentTexture);
+	shader.setUniform("resolution", sf::Vector2f(window.getSize()));
 	shaders["CRT"] = std::move(shader);
 }

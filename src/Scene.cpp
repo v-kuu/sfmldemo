@@ -1,12 +1,12 @@
 #include "Scene.hpp"
 
-Scene::Scene(void) : bounds({0, 0}, {5000, 5000}),
-	background(ResourceBank::textures.find("Background")->second, {{0, 0},{5000, 5000}})
+Scene::Scene(sf::RenderWindow &window) : bounds({0, 0}, {5000, 5000}),
+	background(ResourceBank::textures.find("Background")->second, {{0, 0},{5000, 5000}}),
+	frameBuffer(window.getSize())
 {
 }
 
-void Scene::drawBg(sf::RenderWindow &target) const
+void Scene::drawBg(void)
 {
-	sf::Shader &shader = ResourceBank::shaders["CRT"];
-	target.draw(background, &shader);
+	frameBuffer.draw(background);
 }

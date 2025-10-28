@@ -9,14 +9,13 @@ Asteroid::Asteroid(sf::FloatRect sceneBounds)
 	_respawn();
 }
 
-void Asteroid::draw(sf::RenderWindow &target, float delta)
+void Asteroid::draw(sf::RenderTexture &target, float delta)
 {
 	_sprite.move(_dir * (_speed * delta));
 	_sprite.rotate(sf::degrees(_rotSpeed * delta));
 	if (not _sceneBounds.contains(_sprite.getPosition()))
 		_respawn();
-	sf::Shader &shader = ResourceBank::shaders["CRT"];
-	target.draw(_sprite, &shader);
+	target.draw(_sprite);
 }
 
 bool Asteroid::getHit(sf::FloatRect projectile)

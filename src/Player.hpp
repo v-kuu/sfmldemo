@@ -11,7 +11,7 @@ class	Player : public IObject
 		Player(void) = delete;
 		Player(sf::FloatRect sceneBounds);
 
-		void draw(sf::RenderWindow &target, float delta) override;
+		void draw(sf::RenderTexture &target, float delta) override;
 		bool getHit(sf::FloatRect obj) override;
 		void update(sf::Vector2<float> accel, sf::Angle rot, float delta);
 		void fire(void);

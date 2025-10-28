@@ -9,13 +9,11 @@ int main()
 {
     auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "Asteroid Game");
     window.setFramerateLimit(60);
-	ResourceBank::initialize();
-	ResourceBank::shaders["CRT"].setUniform("resolution", sf::Vector2f(window.getSize()));
-	ResourceBank::shaders["CRT"].setUniform("texture", sf::Shader::CurrentTexture);
-	Scene map;
+	ResourceBank::initialize(window);
+	Scene map(window);
 	sf::View main(map.bounds.getCenter(), {1920, 1080});
 	main.zoom(1.3f);
-	window.setView(main);
+	map.frameBuffer.setView(main);
 	Player player(map.bounds);
 	sf::Clock clock;
 	for (int i = 0; i < 32; ++i)
@@ -27,10 +25,11 @@ int main()
 	sf::Angle rot;
     while (window.isOpen())
     {
+        window.clear();
+		map.frameBuffer.clear();
 		accel = {0, 0};
 		rot = sf::degrees(0);
-        window.clear();
-		map.drawBg(window);
+		map.drawBg();
         while (const std::optional event = window.pollEvent())
         {
             if (event->is<sf::Event::Closed>())
@@ -56,16 +55,19 @@ int main()
 		float delta = clock.restart().asSeconds();
 		for (auto &ast : map.asteroids)
 		{
-			ast.draw(window, delta);
+			ast.draw(map.frameBuffer, delta);
 			player.getHit(ast.hitbox());
 		}
-		Projectile::drawAll(window, delta, map);
+		Projectile::drawAll(map.frameBuffer, delta, map);
 		player.update(accel, rot, delta);
-		player.draw(window, delta);
+		player.draw(map.frameBuffer, delta);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
 			player.fire();
 		main.setCenter(player.center());
-		window.setView(main);
+		map.frameBuffer.display();
+		map.frameBuffer.setView(main);
+		sf::Sprite final(map.frameBuffer.getTexture());
+		window.draw(final, &(ResourceBank::shaders["CRT"]));
         window.display();
     }
 }

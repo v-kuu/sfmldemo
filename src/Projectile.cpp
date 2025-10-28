@@ -14,13 +14,12 @@ Projectile::Projectile(void)
 	_despawn();
 }
 
-void Projectile::draw(sf::RenderWindow &target, float delta)
+void Projectile::draw(sf::RenderTexture &target, float delta)
 {
 	_sprite.move(_velocity * delta);
 	if (not _sceneBounds.contains(_sprite.getPosition()))
 		_despawn();
-	sf::Shader &shader = ResourceBank::shaders["CRT"];
-	target.draw(_sprite, &shader);
+	target.draw(_sprite);
 }
 
 bool Projectile::getHit(sf::FloatRect obj)
@@ -29,7 +28,7 @@ bool Projectile::getHit(sf::FloatRect obj)
 	return (false);
 }
 
-void Projectile::drawAll(sf::RenderWindow &target, float delta, Scene &map)
+void Projectile::drawAll(sf::RenderTexture &target, float delta, Scene &map)
 {
 	for (auto &it : _projectiles)
 	{

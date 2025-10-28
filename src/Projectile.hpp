@@ -14,9 +14,9 @@ class	Projectile : public IObject
 		static int next;
 		Projectile(void);
 
-		void draw(sf::RenderWindow &target, float delta) override;
+		void draw(sf::RenderTexture &target, float delta) override;
 		bool getHit(sf::FloatRect obj) override;
-		static void drawAll(sf::RenderWindow &target, float delta, Scene &map);
+		static void drawAll(sf::RenderTexture &target, float delta, Scene &map);
 		static void addProjectile(sf::FloatRect sceneBounds);
 		static void fire(const Player &source);
 

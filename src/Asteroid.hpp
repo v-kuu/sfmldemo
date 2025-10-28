@@ -11,7 +11,7 @@ class	Asteroid : public IObject
 		Asteroid(sf::FloatRect sceneBounds);
 		~Asteroid(void) = default;
 
-		void draw(sf::RenderWindow &target, float delta) override;
+		void draw(sf::RenderTexture &target, float delta) override;
 		bool getHit(sf::FloatRect obj) override;
 		sf::FloatRect hitbox(void) const;
 

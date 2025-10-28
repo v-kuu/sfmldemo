@@ -13,11 +13,10 @@ Player::Player(sf::FloatRect sceneBounds)
 	_sprite.setPosition(_sceneBounds.getCenter());
 }
 
-void Player::draw(sf::RenderWindow &target, float delta)
+void Player::draw(sf::RenderTexture &target, float delta)
 {
 	(void)delta;
-	sf::Shader &shader = ResourceBank::shaders["CRT"];
-	target.draw(_sprite, &shader);
+	target.draw(_sprite);
 }
 
 #include <iostream>
