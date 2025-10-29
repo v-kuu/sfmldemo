@@ -1,7 +1,5 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
-#include "DualComplex.hpp"
 
 class	IObject
 {
@@ -9,5 +7,6 @@ class	IObject
 		virtual ~IObject(void) = default;
 		virtual void update(float delta) = 0;
 		virtual void draw(sf::RenderTexture &target) = 0;
-		virtual bool getHit(sf::FloatRect obj) = 0;
+		virtual void getHit() = 0;
+		[[nodiscard]] virtual sf::FloatRect hitbox(void) const = 0;
 };

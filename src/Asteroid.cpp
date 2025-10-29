@@ -1,7 +1,7 @@
 #include "Asteroid.hpp"
 
 Asteroid::Asteroid(sf::FloatRect sceneBounds)
-	: _sprite(ResourceBank::textures.find("Asteroid")->second),
+	: _sprite(ResourceBank::textures["Asteroid"]),
 	_sceneBounds(sceneBounds)
 {
 	sf::FloatRect bounds = _sprite.getLocalBounds();
@@ -22,14 +22,9 @@ void Asteroid::draw(sf::RenderTexture &target)
 	target.draw(_sprite);
 }
 
-bool Asteroid::getHit(sf::FloatRect projectile)
+void Asteroid::getHit(void)
 {
-	if (_sprite.getGlobalBounds().findIntersection(projectile) != std::nullopt)
-	{
-		_respawn();
-		return (true);
-	}
-	return (false);
+	_respawn();
 }
 
 sf::FloatRect Asteroid::hitbox(void) const

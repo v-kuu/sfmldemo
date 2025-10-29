@@ -7,7 +7,7 @@ sf::FloatRect Projectile::_sceneBounds = {};
 std::vector<Projectile> Projectile::_projectiles = {};
 
 Projectile::Projectile(void)
-	: _sprite(ResourceBank::textures.find("Laser")->second)
+	: _sprite(ResourceBank::textures["Laser"])
 {
 	sf::FloatRect bounds = _sprite.getLocalBounds();
 	_sprite.setOrigin(bounds.getCenter());
@@ -26,25 +26,19 @@ void Projectile::draw(sf::RenderTexture &target)
 	target.draw(_sprite);
 }
 
-bool Projectile::getHit(sf::FloatRect obj)
+void Projectile::getHit(void)
 {
-	(void)obj;
-	return (false);
+	_despawn();
 }
 
-void Projectile::drawAll(sf::RenderTexture &target, float delta, Scene &map)
+sf::FloatRect Projectile::hitbox(void) const
 {
-	for (auto &it : _projectiles)
-	{
-		it.update(delta);
-		it.draw(target);
-		if (it._sprite.getPosition().x > 0)
-		{
-			for (auto &obj : map.asteroids)
-				if (obj.getHit(it._sprite.getGlobalBounds()))
-					it._despawn();
-		}
-	}
+	return (_sprite.getGlobalBounds());
+}
+
+bool Projectile::isSpawned(void) const
+{
+	return (_sprite.getPosition().x > 0);
 }
 
 void Projectile::addProjectile(sf::FloatRect sceneBounds)
@@ -54,23 +48,28 @@ void Projectile::addProjectile(sf::FloatRect sceneBounds)
 	max++;
 }
 
-void Projectile::fire(const Player &source)
+void Projectile::fire(sf::Vector2f pos, sf::Angle rot, sf::Vector2f vel)
 {
 	if (amount >= max)
 		return ;
-	_projectiles[next]._spawn(source);
+	_projectiles[next]._spawn(pos, rot, vel);
 	next++;
 	if (next == max)
 		next = 0;
 }
 
-void Projectile::_spawn(const Player &source)
+std::vector<Projectile>& Projectile::projectiles(void)
+{
+	return (_projectiles);
+}
+
+void Projectile::_spawn(sf::Vector2f pos, sf::Angle rot, sf::Vector2f vel)
 {
 	amount++;
-	_sprite.setPosition(source.center());
-	_sprite.rotate(source.orientation());
-	_velocity = sf::Vector2<float>(0, -1000).rotatedBy(source.orientation());
-	_velocity += source.velocity();
+	_sprite.setPosition(pos);
+	_sprite.rotate(rot);
+	_velocity = sf::Vector2<float>(0, -1000).rotatedBy(rot);
+	_velocity += vel;
 }
 
 void Projectile::_despawn(void)

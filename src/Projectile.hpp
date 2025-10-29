@@ -1,10 +1,6 @@
 #pragma once
 #include "IObject.hpp"
-#include "Scene.hpp"
 #include "ResourceBank.hpp"
-#include "Player.hpp"
-
-class	Player;
 
 class	Projectile : public IObject
 {
@@ -16,10 +12,12 @@ class	Projectile : public IObject
 
 		void update(float delta) override;
 		void draw(sf::RenderTexture &target) override;
-		bool getHit(sf::FloatRect obj) override;
-		static void drawAll(sf::RenderTexture &target, float delta, Scene &map);
+		void getHit() override;
+		sf::FloatRect hitbox(void) const override;
+		bool isSpawned(void) const;
 		static void addProjectile(sf::FloatRect sceneBounds);
-		static void fire(const Player &source);
+		static void fire(sf::Vector2f pos, sf::Angle rot, sf::Vector2f vel);
+		static std::vector<Projectile> &projectiles(void);
 
 	private:
 		sf::Sprite _sprite;
@@ -27,6 +25,6 @@ class	Projectile : public IObject
 		static sf::FloatRect _sceneBounds;
 		static std::vector<Projectile> _projectiles;
 
-		void _spawn(const Player &source);
+		void _spawn(sf::Vector2f pos, sf::Angle rot, sf::Vector2f vel);
 		void _despawn(void);
 };

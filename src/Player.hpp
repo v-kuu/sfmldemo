@@ -13,7 +13,8 @@ class	Player : public IObject
 
 		void update(float delta) override;
 		void draw(sf::RenderTexture &target) override;
-		bool getHit(sf::FloatRect obj) override;
+		void getHit() override;
+		sf::FloatRect hitbox(void) const override;
 
 		sf::Vector2<float> center(void) const;
 		sf::Vector2<float> velocity(void) const;

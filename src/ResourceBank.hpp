@@ -3,6 +3,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Projectile.hpp"
 
 struct	ResourceBank
 {

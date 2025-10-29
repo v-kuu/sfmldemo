@@ -13,8 +13,8 @@ class	Asteroid : public IObject
 
 		void update(float delta) override;
 		void draw(sf::RenderTexture &target) override;
-		bool getHit(sf::FloatRect obj) override;
-		sf::FloatRect hitbox(void) const;
+		void getHit(void) override;
+		sf::FloatRect hitbox(void) const override;
 
 	private:
 		sf::Sprite _sprite;

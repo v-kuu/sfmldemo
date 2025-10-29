@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
 Player::Player(sf::FloatRect sceneBounds)
-	: _sprite(ResourceBank::textures.find("Player")->second),
+	: _sprite(ResourceBank::textures["Player"]),
 	_velocity({0, 0}),
 	_orientation(sf::degrees(0)),
 	_sceneBounds(sceneBounds),
@@ -18,14 +18,14 @@ void Player::draw(sf::RenderTexture &target)
 	target.draw(_sprite);
 }
 
-bool Player::getHit(sf::FloatRect obj)
+void Player::getHit()
 {
-	if (_sprite.getGlobalBounds().findIntersection(obj) != std::nullopt)
-	{
-		std::cout << "Ouchie" << std::endl;
-		return (true);
-	}
-	return (false);
+	std::cout << "Ouchie" << std::endl;
+}
+
+sf::FloatRect Player::hitbox(void) const
+{
+	return (_sprite.getGlobalBounds());
 }
 
 void Player::update(float delta)
@@ -78,7 +78,7 @@ void Player::_fire(void)
 {
 	if (_fireCooldown <= 0)
 	{
-		Projectile::fire(*this);
+		Projectile::fire(_sprite.getPosition(), _orientation, _velocity);
 		_fireCooldown = 1;
 	}
 }
