@@ -14,6 +14,16 @@ vec2 curve(vec2 uv)
 	return uv;
 }
 
+vec4 scanline(vec2 uv)
+{
+    float line_count = 50.0;
+    float s = sin(uv.y * line_count * M_PI * 2.0);
+	float brightness = 0.9;
+	float min_darkness = 0.5;
+	s = (s * 0.5 + 0.5) * brightness + min_darkness;
+	return vec4(vec3(pow(s, 0.25)), 1.0);
+}
+
 void main()
 {
     vec2 uv = gl_FragCoord.xy/resolution.xy;
@@ -25,9 +35,5 @@ void main()
     else
         gl_FragColor = vec4(color, 1);
         
-    float scanline_count = 50.0;
-    float s = sin(uv.y * scanline_count * M_PI * 2.0);
-	s = (s * 0.5 + 0.5) * 0.9 + 0.1;
-	vec4 scan_line = vec4(vec3(pow(s, 0.25)), 1.0);
-    gl_FragColor *= scan_line;
+    gl_FragColor *= scanline(uv);
 }
