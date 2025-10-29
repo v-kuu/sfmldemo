@@ -65,6 +65,7 @@ void Projectile::_spawn(const Player &source)
 	_sprite.setPosition(source.center());
 	_sprite.rotate(source.orientation());
 	_velocity = sf::Vector2<float>(0, -1000).rotatedBy(source.orientation());
+	_velocity += source.velocity();
 }
 
 void Projectile::_despawn(void)

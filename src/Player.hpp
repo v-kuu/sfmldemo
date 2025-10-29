@@ -13,8 +13,8 @@ class	Player : public IObject
 
 		void draw(sf::RenderTexture &target, float delta) override;
 		bool getHit(sf::FloatRect obj) override;
-		void update(sf::Vector2<float> accel, sf::Angle rot, float delta);
-		void fire(void);
+		void update(float delta);
+		void _fire(void);
 
 		sf::Vector2<float> center(void) const;
 		sf::Vector2<float> velocity(void) const;
@@ -27,4 +27,5 @@ class	Player : public IObject
 		sf::FloatRect _sceneBounds;
 		float _topSpeed;
 		float _fireCooldown;
+	
 };

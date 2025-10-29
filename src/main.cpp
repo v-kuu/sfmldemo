@@ -21,14 +21,10 @@ int main()
 	for (int i = 0; i < 5; ++i)
 		Projectile::addProjectile(map.bounds);
 
-	sf::Vector2<float> accel;
-	sf::Angle rot;
     while (window.isOpen())
     {
         window.clear();
 		map.frameBuffer.clear();
-		accel = {0, 0};
-		rot = sf::degrees(0);
 		map.drawBg();
         while (const std::optional event = window.pollEvent())
         {
@@ -40,29 +36,15 @@ int main()
 					window.close();
 			}
         }
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
-			accel += {0, -10};
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
-			accel += {0, 10};
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
-			accel += {-10, 0};
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
-			accel += {10, 0};
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
-			rot += sf::degrees(-5);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
-			rot += sf::degrees(5);
 		float delta = clock.restart().asSeconds();
 		for (auto &ast : map.asteroids)
 		{
 			ast.draw(map.frameBuffer, delta);
 			player.getHit(ast.hitbox());
 		}
+		player.update(delta);
 		Projectile::drawAll(map.frameBuffer, delta, map);
-		player.update(accel, rot, delta);
 		player.draw(map.frameBuffer, delta);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
-			player.fire();
 		main.setCenter(player.center());
 		map.frameBuffer.display();
 		map.frameBuffer.setView(main);

@@ -19,7 +19,6 @@ void Player::draw(sf::RenderTexture &target, float delta)
 	target.draw(_sprite);
 }
 
-#include <iostream>
 bool Player::getHit(sf::FloatRect obj)
 {
 	if (_sprite.getGlobalBounds().findIntersection(obj) != std::nullopt)
@@ -30,8 +29,23 @@ bool Player::getHit(sf::FloatRect obj)
 	return (false);
 }
 
-void Player::update(sf::Vector2<float> accel, sf::Angle rot, float delta)
+void Player::update(float delta)
 {
+	sf::Angle rot = sf::degrees(0);
+	sf::Vector2<float> accel = {0, 0};
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+		accel += {0, -10};
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
+		accel += {0, 10};
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
+		accel += {-10, 0};
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
+		accel += {10, 0};
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
+		rot += sf::degrees(-5);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
+		rot += sf::degrees(5);
+
 	_orientation += rot;
 	_sprite.rotate(rot);
 	accel = accel.rotatedBy(_orientation);
@@ -40,15 +54,9 @@ void Player::update(sf::Vector2<float> accel, sf::Angle rot, float delta)
 	if (_fireCooldown > 0)
 		_fireCooldown -= delta;
 	_sprite.move(_velocity * delta);
-}
 
-void Player::fire(void)
-{
-	if (_fireCooldown <= 0)
-	{
-		Projectile::fire(*this);
-		_fireCooldown = 1;
-	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+		_fire();
 }
 
 sf::Vector2<float> Player::center(void) const
@@ -64,4 +72,13 @@ sf::Vector2<float> Player::velocity(void) const
 sf::Angle Player::orientation(void) const
 {
 	return (_orientation);
+}
+
+void Player::_fire(void)
+{
+	if (_fireCooldown <= 0)
+	{
+		Projectile::fire(*this);
+		_fireCooldown = 1;
+	}
 }
