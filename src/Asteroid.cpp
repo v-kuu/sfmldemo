@@ -9,12 +9,16 @@ Asteroid::Asteroid(sf::FloatRect sceneBounds)
 	_respawn();
 }
 
-void Asteroid::draw(sf::RenderTexture &target, float delta)
+void Asteroid::update(float delta)
 {
 	_sprite.move(_dir * (_speed * delta));
 	_sprite.rotate(sf::degrees(_rotSpeed * delta));
 	if (not _sceneBounds.contains(_sprite.getPosition()))
 		_respawn();
+}
+
+void Asteroid::draw(sf::RenderTexture &target)
+{
 	target.draw(_sprite);
 }
 

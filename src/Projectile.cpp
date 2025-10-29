@@ -14,11 +14,15 @@ Projectile::Projectile(void)
 	_despawn();
 }
 
-void Projectile::draw(sf::RenderTexture &target, float delta)
+void Projectile::update(float delta)
 {
 	_sprite.move(_velocity * delta);
 	if (not _sceneBounds.contains(_sprite.getPosition()))
 		_despawn();
+}
+
+void Projectile::draw(sf::RenderTexture &target)
+{
 	target.draw(_sprite);
 }
 
@@ -32,7 +36,8 @@ void Projectile::drawAll(sf::RenderTexture &target, float delta, Scene &map)
 {
 	for (auto &it : _projectiles)
 	{
-		it.draw(target, delta);
+		it.update(delta);
+		it.draw(target);
 		if (it._sprite.getPosition().x > 0)
 		{
 			for (auto &obj : map.asteroids)

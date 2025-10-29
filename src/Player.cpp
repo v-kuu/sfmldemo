@@ -13,9 +13,8 @@ Player::Player(sf::FloatRect sceneBounds)
 	_sprite.setPosition(_sceneBounds.getCenter());
 }
 
-void Player::draw(sf::RenderTexture &target, float delta)
+void Player::draw(sf::RenderTexture &target)
 {
-	(void)delta;
 	target.draw(_sprite);
 }
 
@@ -49,8 +48,9 @@ void Player::update(float delta)
 	_orientation += rot;
 	_sprite.rotate(rot);
 	accel = accel.rotatedBy(_orientation);
-	if ((_velocity + accel).length() < _topSpeed)
-		_velocity += accel;
+	_velocity += accel;
+	if (_velocity.length() > _topSpeed)
+		_velocity = _velocity.normalized() * _topSpeed;
 	if (_fireCooldown > 0)
 		_fireCooldown -= delta;
 	_sprite.move(_velocity * delta);

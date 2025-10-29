@@ -39,12 +39,13 @@ int main()
 		float delta = clock.restart().asSeconds();
 		for (auto &ast : map.asteroids)
 		{
-			ast.draw(map.frameBuffer, delta);
+			ast.update(delta);
+			ast.draw(map.frameBuffer);
 			player.getHit(ast.hitbox());
 		}
 		player.update(delta);
 		Projectile::drawAll(map.frameBuffer, delta, map);
-		player.draw(map.frameBuffer, delta);
+		player.draw(map.frameBuffer);
 		main.setCenter(player.center());
 		map.frameBuffer.display();
 		map.frameBuffer.setView(main);
