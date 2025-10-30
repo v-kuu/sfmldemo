@@ -2,6 +2,7 @@
 #include "IObject.hpp"
 #include "ResourceBank.hpp"
 #include "Projectile.hpp"
+#include <cmath>
 
 class	Projectile;
 
@@ -9,7 +10,7 @@ class	Player : public IObject
 {
 	public:
 		Player(void) = delete;
-		Player(sf::FloatRect sceneBounds);
+		Player(sf::FloatRect sceneBounds, sf::RenderWindow &window);
 
 		void update(float delta) override;
 		void draw(sf::RenderTexture &target) override;
@@ -21,6 +22,7 @@ class	Player : public IObject
 		sf::Angle orientation(void) const;
 
 	private:
+		sf::RenderWindow &_window;
 		sf::Sprite _sprite;
 		sf::Vector2<float> _velocity;
 		sf::Angle _orientation;
@@ -29,4 +31,5 @@ class	Player : public IObject
 		float _fireCooldown;
 	
 		void _fire(void);
+		sf::Angle _trackMouse(void);
 };

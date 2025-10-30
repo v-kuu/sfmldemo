@@ -6,7 +6,7 @@ Scene::Scene(sf::RenderWindow &window, int asteroid_amount)
 	background(ResourceBank::textures["Background"], {{0, 0},{5000, 5000}}),
 	frameBuffer(window.getSize()),
 	cam(bounds.getCenter(), {1920, 1080}),
-	player(bounds)
+	player(bounds, window)
 {
 	cam.zoom(1.3f);
 	frameBuffer.setView(cam);

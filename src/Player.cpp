@@ -1,7 +1,8 @@
 #include "Player.hpp"
 
-Player::Player(sf::FloatRect sceneBounds)
-	: _sprite(ResourceBank::textures["Atlas"], ResourceBank::subTextures["Player"]),
+Player::Player(sf::FloatRect sceneBounds, sf::RenderWindow &window)
+	: _window(window),
+	_sprite(ResourceBank::textures["Atlas"], ResourceBank::subTextures["Player"]),
 	_velocity({0, 0}),
 	_orientation(sf::degrees(0)),
 	_sceneBounds(sceneBounds),
@@ -45,8 +46,9 @@ void Player::update(float delta)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
 		rot += sf::degrees(5);
 
-	_orientation += rot;
-	_sprite.rotate(rot);
+	rot = _trackMouse();
+	_orientation = rot;
+	_sprite.setRotation(rot);
 	accel = accel.rotatedBy(_orientation);
 	_velocity += accel;
 	if (_velocity.length() > _topSpeed)
@@ -56,6 +58,8 @@ void Player::update(float delta)
 	_sprite.move(_velocity * delta);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+		_fire();
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 		_fire();
 }
 
@@ -81,4 +85,22 @@ void Player::_fire(void)
 		Projectile::fire(_sprite.getPosition(), _orientation, _velocity);
 		_fireCooldown = 1;
 	}
+}
+
+sf::Angle Player::_trackMouse(void)
+{
+	sf::Vector2i mousePos = sf::Mouse::getPosition(_window);
+	sf::Vector2u winSize = _window.getSize();
+	sf::Vector2f center(winSize.x / 2.f, winSize.y / 2.f);
+	sf::Vector2f dir = sf::Vector2f(mousePos) - center;
+
+	sf::Vector2f up(0, -1);
+	float dot = dir.dot(up);
+	float lenDir = sqrtf(static_cast<float>(dir.x * dir.x + dir.y * dir.y));
+	if (lenDir == 0.f)
+		return (sf::radians(0.f));
+	float angle = acosf(dot / static_cast<float>(lenDir * 1.f));
+	if (dir.x < 0)
+		angle = -angle;
+	return (sf::radians(angle));
 }
