@@ -16,7 +16,7 @@ vec2 curve(vec2 uv)
 
 vec4 scanline(vec2 uv)
 {
-    float line_count = 50.0;
+    float line_count = 150.0;
     float s = sin(uv.y * line_count * M_PI * 2.0);
 	float brightness = 0.9;
 	float min_darkness = 0.5;

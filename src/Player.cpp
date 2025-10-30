@@ -7,7 +7,8 @@ Player::Player(sf::FloatRect sceneBounds, sf::RenderWindow &window)
 	_orientation(sf::degrees(0)),
 	_sceneBounds(sceneBounds),
 	_topSpeed(500),
-	_fireCooldown(0)
+	_fireCooldown(0),
+	_hp(5)
 {
 	sf::FloatRect bounds = _sprite.getLocalBounds();
 	_sprite.setOrigin(bounds.getCenter());
@@ -22,6 +23,10 @@ void Player::draw(sf::RenderTexture &target)
 void Player::getHit()
 {
 	std::cout << "Ouchie" << std::endl;
+	_hp--;
+	std::cout << "Hp left: " << _hp << std::endl;
+	if (_hp <= 0)
+		std::cout << "Game over" << std::endl;
 }
 
 sf::FloatRect Player::hitbox(void) const
@@ -34,17 +39,13 @@ void Player::update(float delta)
 	sf::Angle rot = sf::degrees(0);
 	sf::Vector2<float> accel = {0, 0};
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
-		accel += {0, -10};
+		accel += {0, -15};
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
-		accel += {0, 10};
+		accel += {0, 15};
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
-		accel += {-10, 0};
+		accel += {-15, 0};
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
-		accel += {10, 0};
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
-		rot += sf::degrees(-5);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
-		rot += sf::degrees(5);
+		accel += {15, 0};
 
 	rot = _trackMouse();
 	_orientation = rot;
@@ -92,15 +93,18 @@ sf::Angle Player::_trackMouse(void)
 	sf::Vector2i mousePos = sf::Mouse::getPosition(_window);
 	sf::Vector2u winSize = _window.getSize();
 	sf::Vector2f center(winSize.x / 2.f, winSize.y / 2.f);
-	sf::Vector2f dir = sf::Vector2f(mousePos) - center;
 
+	sf::Vector2f dir = sf::Vector2f(mousePos) - center;
 	sf::Vector2f up(0, -1);
 	float dot = dir.dot(up);
+
 	float lenDir = sqrtf(static_cast<float>(dir.x * dir.x + dir.y * dir.y));
 	if (lenDir == 0.f)
 		return (sf::radians(0.f));
+
 	float angle = acosf(dot / static_cast<float>(lenDir * 1.f));
 	if (dir.x < 0)
 		angle = -angle;
+
 	return (sf::radians(angle));
 }

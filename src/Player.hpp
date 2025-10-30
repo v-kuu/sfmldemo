@@ -29,6 +29,7 @@ class	Player : public IObject
 		sf::FloatRect _sceneBounds;
 		float _topSpeed;
 		float _fireCooldown;
+		int _hp;
 	
 		void _fire(void);
 		sf::Angle _trackMouse(void);
