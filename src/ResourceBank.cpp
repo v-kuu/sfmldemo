@@ -1,20 +1,18 @@
 #include "ResourceBank.hpp"
 
 std::map<std::string, sf::Texture> ResourceBank::textures = {};
+std::map<std::string, sf::IntRect> ResourceBank::subTextures = {};
 std::map<std::string, sf::Shader> ResourceBank::shaders = {};
 
 void ResourceBank::initialize(sf::RenderWindow &window)
 {
 	sf::Texture tex;
-	if (!tex.loadFromFile("textures/meteorGrey_big1.png"))
-		std::cerr << "Failed to load asteroid texture" << std::endl;
-	textures["Asteroid"] = sf::Texture(tex);
-	if (!tex.loadFromFile("textures/playerShip1_blue.png"))
-		std::cerr << "Failed to load player texture" << std::endl;
-	textures["Player"] = sf::Texture(tex);
-	if (!tex.loadFromFile("textures/laserGreen08.png"))
-		std::cerr << "Failed to load player texture" << std::endl;
-	textures["Laser"] = sf::Texture(tex);
+	if (!tex.loadFromFile("textures/sheet.png"))
+		std::cerr << "Failed to load texture atlas" << std::endl;
+	textures["Atlas"] = sf::Texture(tex);
+	subTextures["Asteroid"] = sf::IntRect({224, 748}, {101, 84});
+	subTextures["Player"] = sf::IntRect({211, 941}, {99, 75});
+	subTextures["Laser"] = sf::IntRect({848, 738}, {13, 37});
 	if (!tex.loadFromFile("textures/purple.png"))
 		std::cerr << "Failed to load background texture" << std::endl;
 	textures["Background"] = sf::Texture(tex);
