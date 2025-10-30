@@ -1,7 +1,7 @@
 #include "Asteroid.hpp"
 
 Asteroid::Asteroid(sf::FloatRect sceneBounds)
-	: _sprite(ResourceBank::textures["Asteroid"]),
+	: _sprite(ResourceBank::textures["Atlas"], ResourceBank::subTextures["Asteroid"]),
 	_sceneBounds(sceneBounds)
 {
 	sf::FloatRect bounds = _sprite.getLocalBounds();

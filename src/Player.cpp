@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
 Player::Player(sf::FloatRect sceneBounds)
-	: _sprite(ResourceBank::textures["Player"]),
+	: _sprite(ResourceBank::textures["Atlas"], ResourceBank::subTextures["Player"]),
 	_velocity({0, 0}),
 	_orientation(sf::degrees(0)),
 	_sceneBounds(sceneBounds),

@@ -7,7 +7,7 @@ sf::FloatRect Projectile::_sceneBounds = {};
 std::vector<Projectile> Projectile::_projectiles = {};
 
 Projectile::Projectile(void)
-	: _sprite(ResourceBank::textures["Laser"])
+	: _sprite(ResourceBank::textures["Atlas"], ResourceBank::subTextures["Laser"])
 {
 	sf::FloatRect bounds = _sprite.getLocalBounds();
 	_sprite.setOrigin(bounds.getCenter());
