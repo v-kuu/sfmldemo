@@ -14,13 +14,17 @@ class	Player : public IObject
 
 		void update(float delta) override;
 		void draw(sf::RenderTexture &target) override;
-		void getHit() override;
-		sf::FloatRect hitbox(void) const override;
+		void getHit(void) override;
+		void scoreHit(void);
+		void repair(void);
 
+		sf::FloatRect hitbox(void) const override;
 		sf::Vector2<float> center(void) const;
 		sf::Vector2<float> velocity(void) const;
 		sf::Angle orientation(void) const;
 		int hp(void) const;
+		int hits(void) const;
+		int maxHits(void) const;
 
 	private:
 		sf::RenderWindow &_window;
@@ -32,6 +36,8 @@ class	Player : public IObject
 		float _fireCooldown;
 		int _hp;
 		int _maxHp;
+		int _hits;
+		int _maxHits;
 	
 		void _fire(void);
 		sf::Angle _trackMouse(void);

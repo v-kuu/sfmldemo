@@ -9,7 +9,9 @@ Player::Player(sf::FloatRect sceneBounds, sf::RenderWindow &window)
 	_topSpeed(500),
 	_fireCooldown(0),
 	_hp(5),
-	_maxHp(5)
+	_maxHp(5),
+	_hits(0),
+	_maxHits(5)
 {
 	sf::FloatRect bounds = _sprite.getLocalBounds();
 	_sprite.setOrigin(bounds.getCenter());
@@ -21,13 +23,27 @@ void Player::draw(sf::RenderTexture &target)
 	target.draw(_sprite);
 }
 
-void Player::getHit()
+void Player::getHit(void)
 {
-	std::cout << "Ouchie" << std::endl;
 	_hp--;
-	std::cout << "Hp left: " << _hp << std::endl;
 	if (_hp <= 0)
 		std::cout << "Game over" << std::endl;
+}
+
+void Player::repair(void)
+{
+	if (_hp < _maxHp)
+		_hp++;
+}
+
+void Player::scoreHit(void)
+{
+	_hits++;
+	if (_hits >= _maxHits)
+	{
+		repair();
+		_hits = 0;
+	}
 }
 
 sf::FloatRect Player::hitbox(void) const
@@ -83,6 +99,16 @@ sf::Angle Player::orientation(void) const
 int Player::hp(void) const
 {
 	return (_hp);
+}
+
+int Player::hits(void) const
+{
+	return (_hits);
+}
+
+int Player::maxHits(void) const
+{
+	return (_maxHits);
 }
 
 void Player::_fire(void)

@@ -14,6 +14,7 @@ void ResourceBank::initialize(sf::RenderWindow &window)
 	subTextures["Player"] = sf::IntRect({211, 941}, {99, 75});
 	subTextures["Laser"] = sf::IntRect({848, 738}, {13, 37});
 	subTextures["HP"] = sf::IntRect({482, 358}, {33, 26});
+	subTextures["Hits"] = sf::IntRect({406, 262}, {28, 28});
 	if (!tex.loadFromFile("textures/purple.png"))
 		std::cerr << "Failed to load background texture" << std::endl;
 	textures["Background"] = sf::Texture(tex);

@@ -48,6 +48,7 @@ void Scene::update(float delta)
 				{
 					obj.getHit();
 					pr.getHit();
+					player.scoreHit();
 				}
 		}
 	}

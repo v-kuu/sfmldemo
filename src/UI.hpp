@@ -12,5 +12,6 @@ class UI
 
 	private:
 		std::vector<sf::Sprite> _hpSprites;
+		std::vector<sf::Sprite> _hitSprites;
 		const Player &_player;
 };
