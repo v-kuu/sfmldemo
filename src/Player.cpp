@@ -8,7 +8,8 @@ Player::Player(sf::FloatRect sceneBounds, sf::RenderWindow &window)
 	_sceneBounds(sceneBounds),
 	_topSpeed(500),
 	_fireCooldown(0),
-	_hp(5)
+	_hp(5),
+	_maxHp(5)
 {
 	sf::FloatRect bounds = _sprite.getLocalBounds();
 	_sprite.setOrigin(bounds.getCenter());
@@ -77,6 +78,11 @@ sf::Vector2<float> Player::velocity(void) const
 sf::Angle Player::orientation(void) const
 {
 	return (_orientation);
+}
+
+int Player::hp(void) const
+{
+	return (_hp);
 }
 
 void Player::_fire(void)

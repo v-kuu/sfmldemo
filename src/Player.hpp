@@ -20,6 +20,7 @@ class	Player : public IObject
 		sf::Vector2<float> center(void) const;
 		sf::Vector2<float> velocity(void) const;
 		sf::Angle orientation(void) const;
+		int hp(void) const;
 
 	private:
 		sf::RenderWindow &_window;
@@ -30,6 +31,7 @@ class	Player : public IObject
 		float _topSpeed;
 		float _fireCooldown;
 		int _hp;
+		int _maxHp;
 	
 		void _fire(void);
 		sf::Angle _trackMouse(void);

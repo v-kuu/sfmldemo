@@ -1,8 +1,8 @@
 #pragma once
 #include "Asteroid.hpp"
 #include "Player.hpp"
+#include "UI.hpp"
 #include <vector>
-#include <memory>
 
 class	Asteroid;
 class	Player;
@@ -21,4 +21,5 @@ struct	Scene
 		sf::RenderTexture frameBuffer;
 		sf::View cam;
 		Player player;
+		UI ui;
 };
