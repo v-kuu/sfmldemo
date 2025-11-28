@@ -5,7 +5,7 @@ Scene::Scene(sf::RenderWindow &window, int asteroid_amount)
 	asteroids({}),
 	background(ResourceBank::textures["Background"], {{0, 0},{5000, 5000}}),
 	frameBuffer(window.getSize()),
-	cam(bounds.getCenter(), {1920, 1080}),
+	cam(bounds.getCenter(), static_cast<sf::Vector2<float>>(window.getSize())),
 	player(bounds, window),
 	ui(player)
 {

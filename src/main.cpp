@@ -3,7 +3,7 @@
 
 int main()
 {
-    auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "Asteroid Game");
+    auto window = sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Asteroid Game", sf::State::Fullscreen);
     window.setFramerateLimit(60);
 
 	ResourceBank::initialize(window);
