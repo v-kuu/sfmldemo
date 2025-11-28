@@ -1,5 +1,7 @@
 A little asteroid game I made to learn SFML
 
+![](/example.png)
+
 ## Installation (Linux)
 Clone the repo wherever and then in the repository root:
 ```bash
